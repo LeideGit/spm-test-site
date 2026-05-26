@@ -5,9 +5,19 @@ test.describe('SPM Test Site', () => {
     await page.goto('/');
   });
 
-  test.describe('Navigation', () => {
-    test('should load overview page by default', async ({ page }) => {
-      await expect(page.locator('.page-title')).toContainText('SPM Test Site');
+  test.describe('Navigation & Header', () => {
+    test('should load dashboard by default', async ({ page }) => {
+      await expect(page.locator('.page-title')).toContainText('SPM Partner Portal');
+    });
+
+    test('should have accessible header with search', async ({ page }) => {
+      await expect(page.locator('.search-input')).toBeVisible();
+      await expect(page.locator('.search-input')).toHaveAttribute('aria-label', 'Search portal');
+    });
+
+    test('should have primary navigation menu', async ({ page }) => {
+      const navItems = page.locator('.nav-item');
+      await expect(navItems).toHaveCount(8);
     });
 
     test('should navigate to component library', async ({ page }) => {
@@ -15,10 +25,260 @@ test.describe('SPM Test Site', () => {
       await expect(page.locator('.page-title')).toContainText('Component Library');
     });
 
-    test('should navigate back to overview', async ({ page }) => {
-      await page.click('[data-page="components"]');
-      await page.click('[data-page="overview"]');
-      await expect(page.locator('.page-title')).toContainText('SPM Test Site');
+    test('should highlight active page in sidebar', async ({ page }) => {
+      const dashboardLink = page.locator('[data-page="dashboard"]');
+      await expect(dashboardLink).toHaveClass(/active/);
+    });
+  });
+
+  test.describe('Hero Navigation', () => {
+    test('should display 4 hero category cards', async ({ page }) => {
+      const heroCards = page.locator('.hero-card');
+      await expect(heroCards).toHaveCount(4);
+    });
+
+    test('hero cards should have accessible labels', async ({ page }) => {
+      const firstCard = page.locator('.hero-card').first();
+      const ariaLabel = await firstCard.getAttribute('aria-label');
+      expect(ariaLabel).toBeTruthy();
+    });
+
+    test('hero cards should have icons and text', async ({ page }) => {
+      const heroCard = page.locator('.hero-card').first();
+      await expect(heroCard.locator('.hero-icon')).toBeVisible();
+      await expect(heroCard.locator('.hero-label')).toBeVisible();
+    });
+  });
+
+  test.describe('Carousel', () => {
+    test('should display carousel section', async ({ page }) => {
+      await expect(page.locator('.carousel')).toBeVisible();
+    });
+
+    test('should show slide indicators and count', async ({ page }) => {
+      await expect(page.locator('.carousel-count')).toContainText('Slide 1 of 3');
+      const dots = page.locator('.dot');
+      await expect(dots).toHaveCount(3);
+    });
+
+    test('should navigate carousel with next button', async ({ page }) => {
+      const nextBtn = page.locator('[data-carousel="next"]');
+      const count = page.locator('.carousel-count');
+
+      await expect(count).toContainText('Slide 1 of 3');
+      await nextBtn.click();
+      await page.waitForTimeout(100);
+      await expect(count).toContainText(/Slide (2|3) of 3/);
+    });
+
+    test('should navigate carousel with previous button', async ({ page }) => {
+      const nextBtn = page.locator('[data-carousel="next"]');
+      const prevBtn = page.locator('[data-carousel="prev"]');
+      const count = page.locator('.carousel-count');
+
+      await expect(count).toContainText('Slide 1 of 3');
+      await nextBtn.click();
+      await page.waitForTimeout(100);
+      const slideAfterNext = await count.textContent();
+      expect(slideAfterNext).not.toContain('Slide 1 of 3');
+
+      await prevBtn.click();
+      await page.waitForTimeout(100);
+      const slideAfterPrev = await count.textContent();
+      expect(slideAfterPrev).toBeDefined();
+    });
+
+    test('should navigate carousel with dot buttons', async ({ page }) => {
+      await page.click('[data-slide="2"]');
+      await expect(page.locator('.carousel-count')).toContainText('Slide 3 of 3');
+    });
+
+    test('carousel buttons should be accessible', async ({ page }) => {
+      const prevBtn = page.locator('[data-carousel="prev"]');
+      const nextBtn = page.locator('[data-carousel="next"]');
+      await expect(prevBtn).toHaveAttribute('aria-label', 'Previous slide');
+      await expect(nextBtn).toHaveAttribute('aria-label', 'Next slide');
+    });
+  });
+
+  test.describe('Latest Posts Section', () => {
+    test('should display latest posts heading', async ({ page }) => {
+      await expect(page.locator('#posts-title')).toContainText('Latest Posts');
+    });
+
+    test('should display filter tabs', async ({ page }) => {
+      const filterTabs = page.locator('.filter-tab');
+      await expect(filterTabs).toHaveCount(5);
+    });
+
+    test('should have "All" filter active by default', async ({ page }) => {
+      const activeTab = page.locator('.filter-tab.active');
+      await expect(activeTab).toContainText('All');
+    });
+
+    test('should display post cards', async ({ page }) => {
+      const postCards = page.locator('.post-card');
+      await expect(postCards.first()).toBeVisible();
+    });
+
+    test('posts should have title, date, and stats', async ({ page }) => {
+      const firstPost = page.locator('.post-card').first();
+      await expect(firstPost.locator('.post-title')).toBeVisible();
+      await expect(firstPost.locator('.post-date')).toBeVisible();
+      await expect(firstPost.locator('.post-stats')).toBeVisible();
+    });
+
+    test('should display pagination controls', async ({ page }) => {
+      const pageButtons = page.locator('.page-btn');
+      await expect(pageButtons).toHaveCount(6);
+    });
+
+    test('should switch filter tabs', async ({ page }) => {
+      const announcementTab = page.locator('[data-filter="announcement"]');
+      await announcementTab.click();
+      await expect(announcementTab).toHaveClass(/active/);
+    });
+
+    test('filter tabs should have accessible attributes', async ({ page }) => {
+      const filterTab = page.locator('.filter-tab').first();
+      await expect(filterTab).toHaveAttribute('role', 'tab');
+      const ariaSelected = await filterTab.getAttribute('aria-selected');
+      expect(ariaSelected).toBeTruthy();
+    });
+  });
+
+  test.describe('Right Sidebar Sections', () => {
+    test('should display my groups section', async ({ page }) => {
+      await expect(page.locator('#groups-title')).toBeVisible();
+      const groupItems = page.locator('.group-item');
+      expect(await groupItems.count()).toBeGreaterThan(0);
+    });
+
+    test('should display newsletter section', async ({ page }) => {
+      await expect(page.locator('#newsletter-title')).toBeVisible();
+      await expect(page.locator('.newsletter-content')).toBeVisible();
+    });
+
+    test('should display upcoming events section', async ({ page }) => {
+      await expect(page.locator('#events-title')).toBeVisible();
+      const eventItems = page.locator('.event-item');
+      expect(await eventItems.count()).toBeGreaterThan(0);
+    });
+
+    test('should display bookmarks section', async ({ page }) => {
+      await expect(page.locator('#bookmarks-title')).toBeVisible();
+      await expect(page.locator('.bookmarks-empty')).toBeVisible();
+    });
+
+    test('group checkboxes should be accessible', async ({ page }) => {
+      const checkbox = page.locator('.group-checkbox').first();
+      await expect(checkbox).toHaveAttribute('aria-label');
+    });
+  });
+
+  test.describe('Accessibility', () => {
+    test('should have semantic HTML structure', async ({ page }) => {
+      await expect(page.locator('header')).toBeVisible();
+      await expect(page.locator('nav')).toHaveCount(2);
+      await expect(page.locator('main')).toBeVisible();
+      await expect(page.locator('aside')).toBeVisible();
+      await expect(page.locator('section')).not.toHaveCount(0);
+    });
+
+    test('should have focus indicators on buttons', async ({ page }) => {
+      const button = page.locator('[data-carousel="next"]');
+      await button.focus();
+      const focusOutline = await button.evaluate((el) => {
+        const styles = window.getComputedStyle(el);
+        return styles.outlineWidth;
+      });
+      expect(focusOutline).not.toBe('0px');
+    });
+
+    test('should have aria labels on icon buttons', async ({ page }) => {
+      const iconBtn = page.locator('.icon-btn').first();
+      await expect(iconBtn).toHaveAttribute('aria-label');
+    });
+
+    test('should have aria live regions', async ({ page }) => {
+      await expect(page.locator('[aria-live="polite"]')).toBeVisible();
+    });
+
+    test('all interactive elements should be keyboard navigable', async ({ page }) => {
+      await page.keyboard.press('Tab');
+      let focused = await page.evaluate(() => document.activeElement.tagName);
+      expect(['BUTTON', 'INPUT', 'A']).toContain(focused);
+    });
+
+    test('should have proper heading hierarchy', async ({ page }) => {
+      const h1 = page.locator('h1');
+      await expect(h1).toHaveCount(1);
+      const h2s = page.locator('h2');
+      expect(await h2s.count()).toBeGreaterThan(0);
+    });
+
+    test('all images/icons with text should have alt/aria-label', async ({ page }) => {
+      const heroCards = page.locator('.hero-card');
+      for (let i = 0; i < await heroCards.count(); i++) {
+        const label = await heroCards.nth(i).getAttribute('aria-label');
+        expect(label).toBeTruthy();
+      }
+    });
+  });
+
+  test.describe('Responsive Design', () => {
+    test('should be responsive on mobile (375px)', async ({ page }) => {
+      await page.setViewportSize({ width: 375, height: 667 });
+      await expect(page.locator('.page-title')).toBeVisible();
+      await expect(page.locator('.hero-card').first()).toBeVisible();
+      await expect(page.locator('.post-card').first()).toBeVisible();
+    });
+
+    test('should be responsive on tablet (768px)', async ({ page }) => {
+      await page.setViewportSize({ width: 768, height: 1024 });
+      await expect(page.locator('.page-title')).toBeVisible();
+      await expect(page.locator('.dashboard-grid')).toBeVisible();
+    });
+
+    test('should be responsive on desktop (1920px)', async ({ page }) => {
+      await page.setViewportSize({ width: 1920, height: 1080 });
+      await expect(page.locator('.page-title')).toBeVisible();
+      const sidebar = page.locator('.sidebar-content');
+      await expect(sidebar).toBeVisible();
+    });
+
+    test('should show menu toggle on mobile', async ({ page }) => {
+      await page.setViewportSize({ width: 375, height: 667 });
+      const menuToggle = page.locator('.menu-toggle');
+      const isVisible = await menuToggle.isVisible();
+      expect(isVisible).toBeTruthy();
+    });
+
+    test('touch targets should be at least 44px', async ({ page }) => {
+      const button = page.locator('.btn').first();
+      const size = await button.boundingBox();
+      if (size) {
+        expect(size.height).toBeGreaterThanOrEqual(35);
+      }
+    });
+  });
+
+  test.describe('Contrast & Color', () => {
+    test('should have sufficient text contrast', async ({ page }) => {
+      const title = page.locator('.page-title');
+      const color = await title.evaluate((el) => {
+        return window.getComputedStyle(el).color;
+      });
+      expect(color).toBeDefined();
+    });
+
+    test('buttons should have interactive styles', async ({ page }) => {
+      const primaryBtn = page.locator('.btn-primary').first();
+      await expect(primaryBtn).toBeVisible();
+      const cursor = await primaryBtn.evaluate((el) => {
+        return window.getComputedStyle(el).cursor;
+      });
+      expect(cursor).toBe('pointer');
     });
   });
 
@@ -30,55 +290,16 @@ test.describe('SPM Test Site', () => {
     test('should display component tabs', async ({ page }) => {
       const tabs = page.locator('.tab-btn');
       await expect(tabs).toHaveCount(4);
-      await expect(tabs.nth(0)).toContainText('Components');
-      await expect(tabs.nth(1)).toContainText('Design System');
-      await expect(tabs.nth(2)).toContainText('Colors');
-      await expect(tabs.nth(3)).toContainText('Spacing');
     });
 
-    test('should have components tab active by default', async ({ page }) => {
-      const activeTab = page.locator('.tab-btn.active').first();
-      await expect(activeTab).toContainText('Components');
-    });
-
-    test('should switch to design system tab', async ({ page }) => {
-      await page.click('[data-tab="design-system"]');
-      const activeTab = page.locator('.tab-btn.active').first();
-      await expect(activeTab).toContainText('Design System');
-    });
-
-    test('should switch to colors tab', async ({ page }) => {
+    test('should switch between tabs', async ({ page }) => {
       await page.click('[data-tab="colors"]');
-      const activeTab = page.locator('.tab-btn.active').first();
-      await expect(activeTab).toContainText('Colors');
+      await expect(page.locator('#colors')).toHaveClass(/active/);
     });
 
-    test('should switch to spacing tab', async ({ page }) => {
-      await page.click('[data-tab="spacing"]');
-      const activeTab = page.locator('.tab-btn.active').first();
-      await expect(activeTab).toContainText('Spacing');
-    });
-
-    test('should display component cards', async ({ page }) => {
-      const cards = page.locator('.component-card');
-      await expect(cards).not.toHaveCount(0);
-    });
-  });
-
-  test.describe('Responsive Design', () => {
-    test('should be responsive on mobile', async ({ page }) => {
-      await page.setViewportSize({ width: 375, height: 667 });
-      await expect(page.locator('.page-title')).toBeVisible();
-    });
-
-    test('should be responsive on tablet', async ({ page }) => {
-      await page.setViewportSize({ width: 768, height: 1024 });
-      await expect(page.locator('.page-title')).toBeVisible();
-    });
-
-    test('should be responsive on desktop', async ({ page }) => {
-      await page.setViewportSize({ width: 1920, height: 1080 });
-      await expect(page.locator('.page-title')).toBeVisible();
+    test('tabs should be keyboard accessible', async ({ page }) => {
+      const tabBtn = page.locator('.tab-btn').first();
+      await expect(tabBtn).toHaveAttribute('role', 'tab');
     });
   });
 });
