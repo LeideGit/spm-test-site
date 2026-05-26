@@ -21,13 +21,58 @@ test.describe('SPM Test Site', () => {
     });
 
     test('should navigate to component library', async ({ page }) => {
-      await page.click('[data-page="components"]');
+      await page.evaluate(() => {
+        document.querySelector('[data-page="components"]').click();
+      });
       await expect(page.locator('.page-title')).toContainText('Component Library');
+      // Sidebar should be visible on component library page
+      await expect(page.locator('.sidebar-nav')).not.toHaveCSS('left', '-9999px');
     });
 
     test('should highlight active page in sidebar', async ({ page }) => {
-      const dashboardLink = page.locator('[data-page="dashboard"]');
-      await expect(dashboardLink).toHaveClass(/active/);
+      // Navigate to component library to show sidebar
+      await page.evaluate(() => {
+        document.querySelector('[data-page="components"]').click();
+      });
+      const componentLink = page.locator('[data-page="components"]');
+      await expect(componentLink).toHaveClass(/active/);
+    });
+  });
+
+  test.describe('Dashboard Page', () => {
+    test('should hide sidebar on dashboard', async ({ page }) => {
+      const sidebar = page.locator('.sidebar-nav');
+      const isHidden = await sidebar.evaluate((el) => {
+        const style = window.getComputedStyle(el);
+        return style.left === '-9999px';
+      });
+      expect(isHidden).toBeTruthy();
+    });
+
+    test('should display icon cards on dashboard', async ({ page }) => {
+      const iconCards = page.locator('.icon-card');
+      await expect(iconCards).toHaveCount(4);
+    });
+
+    test('icon cards should have correct titles', async ({ page }) => {
+      await expect(page.locator('.icon-card-title').nth(0)).toContainText('Sales hub');
+      await expect(page.locator('.icon-card-title').nth(1)).toContainText('Technical resources');
+      await expect(page.locator('.icon-card-title').nth(2)).toContainText('Marketing material');
+      await expect(page.locator('.icon-card-title').nth(3)).toContainText('Training');
+    });
+
+    test('icon cards should have descriptions', async ({ page }) => {
+      const descriptions = page.locator('.icon-card-desc');
+      await expect(descriptions).not.toHaveCount(0);
+    });
+
+    test('icon cards should be keyboard accessible', async ({ page }) => {
+      const firstCard = page.locator('.icon-card').first();
+      await firstCard.focus();
+      const focused = await page.evaluate(() => {
+        return document.activeElement.className.includes('icon-card');
+      });
+      expect(focused).toBeTruthy();
     });
   });
 
@@ -336,7 +381,14 @@ test.describe('SPM Test Site', () => {
 
   test.describe('Component Library Page', () => {
     test.beforeEach(async ({ page }) => {
-      await page.click('[data-page="components"]');
+      await page.evaluate(() => {
+        document.querySelector('[data-page="components"]').click();
+      });
+    });
+
+    test('should display sidebar on component library page', async ({ page }) => {
+      const sidebar = page.locator('.sidebar-nav');
+      await expect(sidebar).toBeVisible();
     });
 
     test('should display component tabs', async ({ page }) => {

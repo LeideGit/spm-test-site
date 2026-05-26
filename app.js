@@ -88,9 +88,9 @@ class App {
   renderDashboardPage() {
     return `
       ${this.renderHeader()}
-      <div class="dashboard-container">
+      <div class="dashboard-container dashboard-container--no-sidebar">
         ${this.renderNavigation()}
-        <main class="dashboard-main">
+        <main class="dashboard-main dashboard-main--full-width">
           <div class="page-header">
             <h1 class="page-title">SPM Partner Portal</h1>
             <p class="page-subtitle">Empowering SPM Partners Worldwide</p>
@@ -132,37 +132,56 @@ class App {
       { icon: '🔗', title: 'Marketing portal', desc: 'Campaign tools', href: '/marketing', external: true }
     ];
 
+    const iconCards = [
+      { icon: '📊', title: 'Sales hub', desc: 'Sales resources and tools', href: '#sales' },
+      { icon: '⚙️', title: 'Technical resources', desc: 'Technical documentation', href: '#technical' },
+      { icon: '📱', title: 'Marketing material', desc: 'Marketing assets', href: '#marketing' },
+      { icon: '🎓', title: 'Training', desc: 'Training programs', href: '#training' }
+    ];
+
     return `
       <section class="hero-navigation" aria-labelledby="hero-main-title">
         <div class="hero-container">
-          <!-- Column 1: Primary -->
-          <div class="hero-column hero-column--primary" role="region" aria-label="Portal Header">
-            <h1 id="hero-main-title" class="hero-title">SPM Partner Portal</h1>
-            <p class="hero-subtitle">Empowering SPM Partners Worldwide</p>
-          </div>
+          <!-- Left Column: Recommended + Popular -->
+          <div class="hero-column-left">
+            <h1 id="hero-main-title" class="hero-title sr-only">SPM Partner Portal</h1>
+            <p class="hero-subtitle sr-only">Empowering SPM Partners Worldwide</p>
 
-          <!-- Column 2: Popular Resources -->
-          <nav class="hero-column hero-column--popular" aria-labelledby="popular-title">
-            <h2 id="popular-title" class="hero-section-title">Popular</h2>
-            <ul class="hero-links" role="list">
-              ${popularItems.map(item => `
-                <li>
-                  <a href="${item.href}" class="hero-link" aria-label="${item.title}: ${item.desc}">
+            <!-- Recommended Section -->
+            <div class="hero-section">
+              <h2 class="hero-section-title">Recommended</h2>
+              <div class="icon-cards-horizontal">
+                ${iconCards.map((card, idx) => `
+                  <a href="${card.href}" class="icon-card" data-card="${idx}" aria-label="${card.title}: ${card.desc}">
+                    <div class="icon-card-icon">${card.icon}</div>
+                    <h3 class="icon-card-title">${card.title}</h3>
+                    <p class="icon-card-desc">${card.desc}</p>
+                  </a>
+                `).join('')}
+              </div>
+            </div>
+
+            <!-- Popular Section -->
+            <nav class="hero-section hero-section--popular" aria-labelledby="popular-title">
+              <h2 id="popular-title" class="hero-section-title">Popular</h2>
+              <div class="hero-links-horizontal" role="list">
+                ${popularItems.map(item => `
+                  <a href="${item.href}" class="hero-link-item" role="listitem" aria-label="${item.title}: ${item.desc}">
                     <span class="hero-icon" aria-hidden="true">${item.icon}</span>
                     <span class="hero-link-content">
                       <span class="hero-link-title">${item.title}</span>
                       <span class="hero-link-desc">${item.desc}</span>
                     </span>
                   </a>
-                </li>
-              `).join('')}
-            </ul>
-          </nav>
+                `).join('')}
+              </div>
+            </nav>
+          </div>
 
-          <!-- Column 3: Resources -->
-          <nav class="hero-column hero-column--resources" aria-labelledby="resources-title">
+          <!-- Right Column: Resources -->
+          <nav class="hero-column-right" aria-labelledby="resources-title">
             <h2 id="resources-title" class="hero-section-title">Resources</h2>
-            <ul class="hero-links" role="list">
+            <ul class="hero-links-vertical" role="list">
               ${resourceItems.map(item => `
                 <li>
                   <a href="${item.href}"
@@ -386,7 +405,7 @@ class App {
   renderComponentsPage() {
     return `
       ${this.renderHeader()}
-      <div class="dashboard-container">
+      <div class="dashboard-container dashboard-container--with-sidebar">
         ${this.renderNavigation()}
         <main class="dashboard-main">
           <div class="page-header">
@@ -424,7 +443,7 @@ class App {
   renderOverviewPage() {
     return `
       ${this.renderHeader()}
-      <div class="dashboard-container">
+      <div class="dashboard-container dashboard-container--with-sidebar">
         ${this.renderNavigation()}
         <main class="dashboard-main">
           <div class="page-header">
