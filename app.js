@@ -167,7 +167,6 @@ class App {
               <div class="hero-links-horizontal" role="list">
                 ${popularItems.map(item => `
                   <a href="${item.href}" class="hero-link-item" role="listitem" aria-label="${item.title}: ${item.desc}">
-                    <span class="hero-icon" aria-hidden="true">${item.icon}</span>
                     <span class="hero-link-content">
                       <span class="hero-link-title">${item.title}</span>
                       <span class="hero-link-desc">${item.desc}</span>
