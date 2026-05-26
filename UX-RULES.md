@@ -715,10 +715,163 @@ Every change must be reviewed against this document:
 
 ---
 
+---
+
+## GitHub Repository Workflow
+
+### Change Management Protocol
+
+When making changes to the SPM Partner Portal, follow this workflow:
+
+#### **Step 1: Inform About Changes**
+- Present what changes were made
+- Show before/after comparison
+- Explain the UX rationale
+
+#### **Step 2: Request Approval**
+**Ask the user**:
+> "I've made the following changes to [section/component]:
+> - [Change 1]
+> - [Change 2]
+> - [Change 3]
+>
+> Should I update the GitHub repository with these changes?"
+
+**Wait for user approval** before proceeding to Step 3.
+
+#### **Step 3: Update Repository (Approval Only)**
+**Only if user approves**, proceed with:
+1. Run tests: `npm test`
+2. Verify all tests pass
+3. Stage changes: `git add -A`
+4. Create descriptive commit message
+5. Commit: `git commit -m "..."`
+6. Push: `git push origin main`
+7. Confirm live deployment
+
+#### **Step 4: Confirm with User**
+Report back:
+- Changes successfully committed
+- Live deployment URL
+- Test results (all passing)
+- What's now live on the site
+
+### Commit Message Format
+
+```
+[Category]: Brief description of change
+
+Detailed explanation:
+- Feature added / Bug fixed / Enhancement made
+- Files modified
+- Tests added/updated
+- Any breaking changes
+
+Tests: X/X passing ✅
+
+Co-Authored-By: Claude Haiku 4.5 <noreply@anthropic.com>
+```
+
+### Approval Decision Points
+
+**Always ask before committing:**
+- ✅ New components or sections
+- ✅ Design changes (colors, spacing, layout)
+- ✅ Content updates
+- ✅ Accessibility modifications
+- ✅ Any user-facing changes
+- ✅ Major refactoring
+- ✅ Any modification to UX/UI
+
+**Safe to commit without asking** (if you're confident):
+- ✅ Internal code organization (no visual changes)
+- ✅ Performance optimizations (no behavior changes)
+- ✅ Documentation updates (comments, docs)
+- ✅ Test additions for existing functionality
+- ✅ Bug fixes with tests passing
+
+### Rules for This Workflow
+
+1. **Never assume**: Always ask before making changes to user-visible features
+2. **Show your work**: Explain what changed and why
+3. **Wait for approval**: Don't push without permission
+4. **Test first**: Verify all tests pass before asking
+5. **Communicate results**: Confirm the deployment worked
+6. **Document changes**: Reference what was changed and why
+
+### Example Workflow
+
+```
+User makes a request: "Add a button to the sidebar"
+
+Step 1: I implement the change locally
+Step 2: I run tests (all passing)
+Step 3: I present the result:
+  "I've added a new 'Download' button to the sidebar.
+   It uses the primary button style and includes:
+   - Proper ARIA label for accessibility
+   - Hover and focus states
+   - Mobile-responsive sizing
+   
+   Should I commit and push this to GitHub?"
+
+Step 4: User responds
+  - "Yes, looks good" → I commit and push
+  - "No, change X first" → I make adjustments and re-present
+  - "Needs more work" → I revise and re-present
+
+Step 5: After approval, I commit:
+  - Run tests
+  - Stage changes
+  - Commit with message
+  - Push to main
+  - Confirm live deployment
+
+Step 6: I report back:
+  "✅ Successfully deployed!
+   - All 51 tests passing
+   - Live at https://leidegit.github.io/spm-test-site/
+   - Button is now visible in the sidebar"
+```
+
+### When to Show Screenshots/Demos
+
+Always show the user:
+- What the change looks like (screenshot or description)
+- How it affects the user experience
+- Before/after comparison if applicable
+- Mobile/tablet/desktop view if layout changed
+- Accessibility implications if relevant
+
+### Handling Rejections
+
+If user requests changes:
+1. Acknowledge feedback
+2. Make requested modifications
+3. Re-test
+4. Present updated version
+5. Ask again for approval
+6. Repeat until approved or cancelled
+
+### Deployment Checklist
+
+Before pushing to GitHub, verify:
+- [ ] All local tests pass (`npm test`)
+- [ ] No console errors
+- [ ] Changes match the request
+- [ ] Accessibility maintained or improved
+- [ ] Responsive design verified
+- [ ] User has approved changes
+- [ ] Commit message is descriptive
+- [ ] No sensitive data in commit
+
+---
+
 ## Version History
 
 | Date | Version | Changes |
 |------|---------|---------|
+| 2026-05-26 | 1.1 | Added GitHub Repository Workflow section |
 | 2026-05-26 | 1.0 | Initial UX Rules document created |
 
 ---
@@ -731,5 +884,6 @@ Refer to this document when:
 - Reviewing pull requests
 - Onboarding new team members
 - Conducting design reviews
+- Understanding GitHub deployment workflow
 
 **Last Updated**: 2026-05-26
