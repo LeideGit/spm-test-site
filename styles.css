@@ -2,7 +2,7 @@
   /* Primary */
   --primary-navy: #1A2332;
   --primary-dark: #233044;
-  --accent-blue: #0052CC;
+  --accent-blue: #2d4561;
 
   /* Neutrals */
   --neutral-white: #FFFFFF;
@@ -206,7 +206,7 @@ body {
 
 .sidebar-nav {
   width: 240px;
-  background-color: var(--primary-dark);
+  background-color: #2d4561;
   padding: 24px 0;
   min-height: calc(100vh - 113px);
   position: sticky;

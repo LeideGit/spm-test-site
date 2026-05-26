@@ -64,6 +64,7 @@ class App {
         </div>
       </header>
       <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="#" data-page="dashboard" class="nav-item">Home</a>
         <a href="#" data-nav="news" class="nav-item">News</a>
         <a href="#" data-nav="events" class="nav-item">Events</a>
         <a href="#" data-nav="products" class="nav-item">Products</a>
@@ -72,6 +73,7 @@ class App {
         <a href="#" data-nav="marketing" class="nav-item">Marketing</a>
         <a href="#" data-nav="resources" class="nav-item">Resources</a>
         <a href="#" data-nav="support" class="nav-item">Support</a>
+        <a href="#" data-page="components" class="nav-item">UX Guide</a>
       </nav>
     `;
   }
@@ -79,8 +81,6 @@ class App {
   renderNavigation() {
     return `
       <nav class="sidebar-nav" aria-label="Page navigation" role="navigation">
-        <a href="#" data-page="dashboard" class="nav-link ${this.currentPage === 'dashboard' ? 'active' : ''}" aria-current="${this.currentPage === 'dashboard' ? 'page' : 'false'}">Dashboard</a>
-        <a href="#" data-page="components" class="nav-link ${this.currentPage === 'components' ? 'active' : ''}" aria-current="${this.currentPage === 'components' ? 'page' : 'false'}">Component Library</a>
       </nav>
     `;
   }
@@ -484,7 +484,7 @@ class App {
         ${this.renderNavigation()}
         <main class="dashboard-main">
           <div class="page-header">
-            <h1 class="page-title">Component Library</h1>
+            <h1 class="page-title">UX Guide</h1>
             <p class="page-subtitle">All UI components and design system rules</p>
           </div>
 
@@ -535,7 +535,7 @@ class App {
             <h2>Key Features</h2>
             <ul style="margin-left: 24px; line-height: 1.8;">
               <li><strong>Dashboard</strong> — SPM Partner Portal with all key sections</li>
-              <li><strong>Component Library</strong> — All UI components organized by category</li>
+              <li><strong>UX Guide</strong> — All UI components organized by category</li>
               <li><strong>Design System</strong> — Typography, colors, spacing, and accessibility</li>
               <li><strong>Playwright Tests</strong> — Comprehensive E2E tests</li>
               <li><strong>UX Rules</strong> — Professional standards and best practices</li>
