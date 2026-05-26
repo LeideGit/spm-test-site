@@ -267,7 +267,7 @@ body {
 
 /* Hero Navigation */
 .hero-navigation {
-  background-color: #1A1A1A;
+  background-color: var(--primary-dark);
   color: var(--neutral-white);
   padding: 40px 32px;
   margin-bottom: 48px;
@@ -375,6 +375,17 @@ body {
   transition: all 0.2s ease-out;
   padding: 12px;
   border-radius: 6px;
+}
+
+.hero-link-item:hover {
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.hero-link-item:focus {
+  outline: 2px solid #87CEEB;
+  outline-offset: 4px;
+  border-radius: 3px;
 }
 
 .hero-link:hover {
