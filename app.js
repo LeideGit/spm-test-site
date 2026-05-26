@@ -117,26 +117,102 @@ class App {
 
   renderHeroNavigation() {
     const popularItems = [
-      { icon: '📥', title: 'Downloads', desc: 'Get all resources', href: '#downloads' },
-      { icon: '📄', title: 'TD sheets', desc: 'Documentation', href: '#td-sheets' },
-      { icon: '▶️', title: 'SPM Play', desc: 'Video library', href: '#spm-play' },
-      { icon: '💻', title: 'Latest software', desc: 'Latest versions', href: '#latest-software' }
+      {
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
+        title: 'Downloads',
+        desc: 'Get all resources',
+        href: '#downloads'
+      },
+      {
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="13" x2="12" y2="17"/><line x1="9" y1="15" x2="15" y2="15"/></svg>',
+        title: 'TD sheets',
+        desc: 'Documentation',
+        href: '#td-sheets'
+      },
+      {
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>',
+        title: 'SPM Play',
+        desc: 'Video library',
+        href: '#spm-play'
+      },
+      {
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="2" y1="17" x2="22" y2="17"/><line x1="6" y1="21" x2="18" y2="21"/></svg>',
+        title: 'Latest software',
+        desc: 'Latest versions',
+        href: '#latest-software'
+      }
     ];
 
     const resourceItems = [
-      { icon: '🔗', title: 'Support Portal', desc: 'Help & support', href: '/support', external: true },
-      { icon: '🔗', title: 'Knowledge base', desc: 'Docs & guides', href: '/knowledge-base', external: true },
-      { icon: '🔗', title: 'Subscription Manager', desc: 'Account management', href: '/subscription', external: true },
-      { icon: '🔗', title: 'Integration Portal', desc: 'APIs & integrations', href: '/integration', external: true },
-      { icon: '🔗', title: 'Service Status', desc: 'System status', href: '/status', external: true },
-      { icon: '🔗', title: 'Marketing portal', desc: 'Campaign tools', href: '/marketing', external: true }
+      {
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24"/></svg>',
+        title: 'Support Portal',
+        desc: 'Help & support',
+        href: '/support',
+        external: true
+      },
+      {
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+        title: 'Knowledge base',
+        desc: 'Docs & guides',
+        href: '/knowledge-base',
+        external: true
+      },
+      {
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/><circle cx="5" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>',
+        title: 'Subscription Manager',
+        desc: 'Account management',
+        href: '/subscription',
+        external: true
+      },
+      {
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="12 3 20 7.5 20 16.5 12 21 4 16.5 4 7.5 12 3"/><polyline points="12 12 20 7.5"/><polyline points="12 12 12 21"/><polyline points="12 12 4 7.5"/></svg>',
+        title: 'Integration Portal',
+        desc: 'APIs & integrations',
+        href: '/integration',
+        external: true
+      },
+      {
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
+        title: 'Service Status',
+        desc: 'System status',
+        href: '/status',
+        external: true
+      },
+      {
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+        title: 'Marketing portal',
+        desc: 'Campaign tools',
+        href: '/marketing',
+        external: true
+      }
     ];
 
     const iconCards = [
-      { icon: '📊', title: 'Sales hub', desc: 'Sales resources and tools', href: '#sales' },
-      { icon: '⚙️', title: 'Technical resources', desc: 'Technical documentation', href: '#technical' },
-      { icon: '📱', title: 'Marketing material', desc: 'Marketing assets', href: '#marketing' },
-      { icon: '🎓', title: 'Training', desc: 'Training programs', href: '#training' }
+      {
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/><rect x="9" y="9" width="9" height="9" fill="currentColor" opacity="0.2"/></svg>',
+        title: 'Sales hub',
+        desc: 'Sales resources and tools',
+        href: '#sales'
+      },
+      {
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/><circle cx="12" cy="19" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="16.5" cy="16.5" r="1"/><circle cx="7.5" cy="16.5" r="1"/><circle cx="16.5" cy="7.5" r="1"/><circle cx="7.5" cy="7.5" r="1"/></svg>',
+        title: 'Technical resources',
+        desc: 'Technical documentation',
+        href: '#technical'
+      },
+      {
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 6v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6M6 6V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/></svg>',
+        title: 'Marketing material',
+        desc: 'Marketing assets',
+        href: '#marketing'
+      },
+      {
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L6 6H3v12h18V6h-3l-6-4z"/><path d="M9 10h6v6H9z"/></svg>',
+        title: 'Training',
+        desc: 'Training programs',
+        href: '#training'
+      }
     ];
 
     return `
