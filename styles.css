@@ -451,7 +451,7 @@ body {
   justify-content: flex-start;
   gap: 12px;
   text-decoration: none;
-  color: var(--text-primary);
+  color: var(--neutral-white);
   width: 100%;
 }
 
@@ -482,8 +482,9 @@ body {
 
 .icon-card-desc {
   font-size: 13px;
-  color: var(--text-secondary);
+  color: var(--neutral-white);
   margin: 0;
+  opacity: 0.9;
 }
 
 /* Carousel */
