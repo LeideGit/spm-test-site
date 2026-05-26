@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { font-family: monospace; padding: 20px; }
+    .debug { background: #f0f0f0; padding: 10px; margin: 10px 0; border-left: 3px solid blue; }
+  </style>
+</head>
+<body>
+  <h1>Debug: App Rendering</h1>
+  <div id="debug"></div>
+  <div id="app"></div>
+  
+  <script>
+    const log = (msg) => {
+      const el = document.getElementById('debug');
+      el.innerHTML += '<div class="debug">' + msg + '</div>';
+      console.log(msg);
+    };
+    
+    log('1. Page loaded');
+  </script>
+  
+  <script src="mock-data.js"></script>
+  <script>
+    const log = (msg) => {
+      const el = document.getElementById('debug');
+      el.innerHTML += '<div class="debug">' + msg + '</div>';
+    };
+    log('2. Mock data loaded');
+  </script>
+  
+  <script src="app.js"></script>
+  <script>
+    const log = (msg) => {
+      const el = document.getElementById('debug');
+      el.innerHTML += '<div class="debug">' + msg + '</div>';
+    };
+    log('3. App.js loaded, App instantiated');
+    
+    setTimeout(() => {
+      const appHTML = document.getElementById('app').innerHTML;
+      log('4. App HTML length: ' + appHTML.length);
+      
+      if (appHTML.includes('icon-card')) {
+        log('✓ Icon cards FOUND in HTML!');
+        log('  Count: ' + (appHTML.match(/icon-card/g) || []).length);
+      } else {
+        log('✗ Icon cards NOT found in HTML');
+      }
+      
+      if (appHTML.includes('Sales hub')) {
+        log('✓ "Sales hub" text found');
+      } else {
+        log('✗ "Sales hub" not found');
+      }
+      
+      // Show what sections are rendered
+      if (appHTML.includes('dashboard-container')) log('  dashboard-container: ✓');
+      if (appHTML.includes('hero-navigation')) log('  hero-navigation: ✓');
+      if (appHTML.includes('icon-cards')) log('  icon-cards: ✓');
+      if (appHTML.includes('carousel')) log('  carousel: ✓');
+    }, 500);
+  </script>
+</body>
+</html>
