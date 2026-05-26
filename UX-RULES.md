@@ -867,6 +867,35 @@ Before pushing to GitHub, verify:
 
 ---
 
+## Design System Updates
+
+### Update UX Guide When Making Changes
+
+When any of the following are modified, you **must** ask to update the UX Guide page to reflect the changes:
+
+- **Components**: Any design or behavior change to existing components
+- **Colors**: Changes to the color palette, hex values, or usage
+- **Design System**: Modifications to typography, spacing, or other design tokens
+- **Spacing**: Updates to spacing scales or spacing rules
+- **Navigation**: Changes to navigation structure or styling
+
+### Process
+
+1. **Make the change** to the component, color, or design system
+2. **Update the UX Guide** page with the new specifications
+3. **Update mock-data.js** with the current values (colors, typography, spacing)
+4. **Ask for approval** before pushing to GitHub
+
+### Why This Matters
+
+The UX Guide page must always reflect the current state of the design system. This ensures:
+- Consistency across the application
+- Accurate documentation for developers and designers
+- Easy reference for all team members
+- Single source of truth for design decisions
+
+---
+
 ## Version History
 
 | Date | Version | Changes |
