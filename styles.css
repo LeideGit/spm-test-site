@@ -360,7 +360,7 @@ body {
   text-decoration: none;
   color: rgba(255, 255, 255, 0.7);
   transition: all 0.2s ease-out;
-  padding: 8px;
+  padding: 10px;
   border-radius: 6px;
   margin: -8px;
 }
@@ -424,6 +424,9 @@ body {
   width: 100%;
   height: 100%;
   stroke: currentColor;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .hero-link-content {
@@ -475,7 +478,7 @@ body {
 }
 
 .icon-card:hover {
-  background-color: var(--accent-blue);
+  background-color: #2d4561;
   transform: translateY(-4px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   border-radius: 8px;
@@ -499,6 +502,9 @@ body {
   width: 100%;
   height: 100%;
   stroke: currentColor;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .icon-card-title {
