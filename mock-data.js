@@ -31,13 +31,16 @@ const mockData = {
   ],
 
   colorPalette: [
-    { name: 'Primary Navy', value: '#1A2332', usage: 'Primary backgrounds, text' },
-    { name: 'Primary Dark', value: '#233044', usage: 'Navigation, dark backgrounds' },
-    { name: 'Accent Blue', value: '#0052CC', usage: 'Links, buttons, active states' },
+    { name: 'Primary Navy', value: '#1A2332', usage: 'Primary backgrounds, main text' },
+    { name: 'Primary Dark', value: '#233044', usage: 'Hero navigation background' },
+    { name: 'Accent Blue', value: '#2d4561', usage: 'Hover states, accents, sidebar background' },
+    { name: 'Neutral White', value: '#FFFFFF', usage: 'Text on dark backgrounds, card titles' },
+    { name: 'Light Gray', value: '#F8F9FA', usage: 'Light backgrounds, neutral elements' },
+    { name: 'Medium Gray', value: '#E8EAED', usage: 'Borders, dividers' },
+    { name: 'Dark Gray', value: '#5F6368', usage: 'Secondary text, icons' },
     { name: 'Success', value: '#2EA44F', usage: 'Success states, confirmations' },
     { name: 'Warning', value: '#D4A500', usage: 'Warning states, alerts' },
-    { name: 'Error', value: '#D1242F', usage: 'Error states, destructive actions' },
-    { name: 'Info', value: '#0052CC', usage: 'Information, notifications' }
+    { name: 'Error', value: '#D1242F', usage: 'Error states, destructive actions' }
   ],
 
   typography: {
