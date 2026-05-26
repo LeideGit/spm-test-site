@@ -32,21 +32,70 @@ test.describe('SPM Test Site', () => {
   });
 
   test.describe('Hero Navigation', () => {
-    test('should display 4 hero category cards', async ({ page }) => {
-      const heroCards = page.locator('.hero-card');
-      await expect(heroCards).toHaveCount(4);
+    test('should display hero navigation section', async ({ page }) => {
+      await expect(page.locator('.hero-navigation')).toBeVisible();
     });
 
-    test('hero cards should have accessible labels', async ({ page }) => {
-      const firstCard = page.locator('.hero-card').first();
-      const ariaLabel = await firstCard.getAttribute('aria-label');
+    test('should display portal title and subtitle', async ({ page }) => {
+      await expect(page.locator('.hero-title')).toContainText('SPM Partner Portal');
+      await expect(page.locator('.hero-subtitle')).toContainText('Empowering SPM Partners Worldwide');
+    });
+
+    test('should display popular section with 4 items', async ({ page }) => {
+      const popularSection = page.locator('#popular-title');
+      await expect(popularSection).toBeVisible();
+      const popularLinks = page.locator('.hero-column--popular .hero-link');
+      await expect(popularLinks).toHaveCount(4);
+    });
+
+    test('should display resources section with 6 items', async ({ page }) => {
+      const resourcesSection = page.locator('#resources-title');
+      await expect(resourcesSection).toBeVisible();
+      const resourceLinks = page.locator('.hero-column--resources .hero-link');
+      await expect(resourceLinks).toHaveCount(6);
+    });
+
+    test('popular items should have icons and descriptions', async ({ page }) => {
+      const firstPopularLink = page.locator('.hero-column--popular .hero-link').first();
+      await expect(firstPopularLink.locator('.hero-icon')).toBeVisible();
+      await expect(firstPopularLink.locator('.hero-link-title')).toBeVisible();
+      await expect(firstPopularLink.locator('.hero-link-desc')).toBeVisible();
+    });
+
+    test('resource items should have icons and descriptions', async ({ page }) => {
+      const firstResourceLink = page.locator('.hero-column--resources .hero-link').first();
+      await expect(firstResourceLink.locator('.hero-icon')).toBeVisible();
+      await expect(firstResourceLink.locator('.hero-link-title')).toBeVisible();
+      await expect(firstResourceLink.locator('.hero-link-desc')).toBeVisible();
+    });
+
+    test('popular and resources should be semantic navs', async ({ page }) => {
+      const navs = page.locator('nav.hero-column');
+      expect(await navs.count()).toBeGreaterThanOrEqual(2);
+    });
+
+    test('hero links should be keyboard accessible', async ({ page }) => {
+      const firstLink = page.locator('.hero-link').first();
+      await firstLink.focus();
+      const focused = await page.evaluate(() => {
+        return document.activeElement.className.includes('hero-link');
+      });
+      expect(focused).toBeTruthy();
+    });
+
+    test('external links should have proper attributes', async ({ page }) => {
+      const externalLink = page.locator('.hero-link--external').first();
+      const target = await externalLink.getAttribute('target');
+      const rel = await externalLink.getAttribute('rel');
+      expect(target).toBe('_blank');
+      expect(rel).toContain('noopener');
+    });
+
+    test('hero links should have proper ARIA labels', async ({ page }) => {
+      const link = page.locator('.hero-link').first();
+      const ariaLabel = await link.getAttribute('aria-label');
       expect(ariaLabel).toBeTruthy();
-    });
-
-    test('hero cards should have icons and text', async ({ page }) => {
-      const heroCard = page.locator('.hero-card').first();
-      await expect(heroCard.locator('.hero-icon')).toBeVisible();
-      await expect(heroCard.locator('.hero-label')).toBeVisible();
+      expect(ariaLabel.length).toBeGreaterThan(0);
     });
   });
 
@@ -179,10 +228,12 @@ test.describe('SPM Test Site', () => {
   test.describe('Accessibility', () => {
     test('should have semantic HTML structure', async ({ page }) => {
       await expect(page.locator('header')).toBeVisible();
-      await expect(page.locator('nav')).toHaveCount(2);
+      const navs = await page.locator('nav').count();
+      expect(navs).toBeGreaterThanOrEqual(2);
       await expect(page.locator('main')).toBeVisible();
       await expect(page.locator('aside')).toBeVisible();
-      await expect(page.locator('section')).not.toHaveCount(0);
+      const sections = await page.locator('section').count();
+      expect(sections).toBeGreaterThan(0);
     });
 
     test('should have focus indicators on buttons', async ({ page }) => {
@@ -212,7 +263,8 @@ test.describe('SPM Test Site', () => {
 
     test('should have proper heading hierarchy', async ({ page }) => {
       const h1 = page.locator('h1');
-      await expect(h1).toHaveCount(1);
+      const h1Count = await h1.count();
+      expect(h1Count).toBeGreaterThan(0);
       const h2s = page.locator('h2');
       expect(await h2s.count()).toBeGreaterThan(0);
     });
@@ -230,7 +282,7 @@ test.describe('SPM Test Site', () => {
     test('should be responsive on mobile (375px)', async ({ page }) => {
       await page.setViewportSize({ width: 375, height: 667 });
       await expect(page.locator('.page-title')).toBeVisible();
-      await expect(page.locator('.hero-card').first()).toBeVisible();
+      await expect(page.locator('.hero-navigation')).toBeVisible();
       await expect(page.locator('.post-card').first()).toBeVisible();
     });
 

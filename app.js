@@ -116,24 +116,69 @@ class App {
   }
 
   renderHeroNavigation() {
-    const heroItems = [
-      { icon: '📊', label: 'Sales hub', desc: 'Sales resources and tools' },
-      { icon: '⚙️', label: 'Technical resources', desc: 'Technical documentation' },
-      { icon: '📱', label: 'Marketing material', desc: 'Marketing assets' },
-      { icon: '🎓', label: 'Training', desc: 'Training programs' }
+    const popularItems = [
+      { icon: '📥', title: 'Downloads', desc: 'Get all resources', href: '#downloads' },
+      { icon: '📄', title: 'TD sheets', desc: 'Documentation', href: '#td-sheets' },
+      { icon: '▶️', title: 'SPM Play', desc: 'Video library', href: '#spm-play' },
+      { icon: '💻', title: 'Latest software', desc: 'Latest versions', href: '#latest-software' }
+    ];
+
+    const resourceItems = [
+      { icon: '🔗', title: 'Support Portal', desc: 'Help & support', href: '/support', external: true },
+      { icon: '🔗', title: 'Knowledge base', desc: 'Docs & guides', href: '/knowledge-base', external: true },
+      { icon: '🔗', title: 'Subscription Manager', desc: 'Account management', href: '/subscription', external: true },
+      { icon: '🔗', title: 'Integration Portal', desc: 'APIs & integrations', href: '/integration', external: true },
+      { icon: '🔗', title: 'Service Status', desc: 'System status', href: '/status', external: true },
+      { icon: '🔗', title: 'Marketing portal', desc: 'Campaign tools', href: '/marketing', external: true }
     ];
 
     return `
-      <section class="hero-navigation" aria-labelledby="hero-title">
-        <h2 id="hero-title" class="sr-only">Main Categories</h2>
-        <div class="hero-grid">
-          ${heroItems.map((item, idx) => `
-            <button class="hero-card" data-hero="${idx}" aria-label="${item.label}: ${item.desc}">
-              <div class="hero-icon">${item.icon}</div>
-              <h3 class="hero-label">${item.label}</h3>
-              <p class="hero-desc">${item.desc}</p>
-            </button>
-          `).join('')}
+      <section class="hero-navigation" aria-labelledby="hero-main-title">
+        <div class="hero-container">
+          <!-- Column 1: Primary -->
+          <div class="hero-column hero-column--primary" role="region" aria-label="Portal Header">
+            <h1 id="hero-main-title" class="hero-title">SPM Partner Portal</h1>
+            <p class="hero-subtitle">Empowering SPM Partners Worldwide</p>
+          </div>
+
+          <!-- Column 2: Popular Resources -->
+          <nav class="hero-column hero-column--popular" aria-labelledby="popular-title">
+            <h2 id="popular-title" class="hero-section-title">Popular</h2>
+            <ul class="hero-links" role="list">
+              ${popularItems.map(item => `
+                <li>
+                  <a href="${item.href}" class="hero-link" aria-label="${item.title}: ${item.desc}">
+                    <span class="hero-icon" aria-hidden="true">${item.icon}</span>
+                    <span class="hero-link-content">
+                      <span class="hero-link-title">${item.title}</span>
+                      <span class="hero-link-desc">${item.desc}</span>
+                    </span>
+                  </a>
+                </li>
+              `).join('')}
+            </ul>
+          </nav>
+
+          <!-- Column 3: Resources -->
+          <nav class="hero-column hero-column--resources" aria-labelledby="resources-title">
+            <h2 id="resources-title" class="hero-section-title">Resources</h2>
+            <ul class="hero-links" role="list">
+              ${resourceItems.map(item => `
+                <li>
+                  <a href="${item.href}"
+                     class="hero-link ${item.external ? 'hero-link--external' : ''}"
+                     ${item.external ? 'target="_blank" rel="noopener noreferrer"' : ''}
+                     aria-label="${item.title}: ${item.desc}${item.external ? ' (opens in new window)' : ''}">
+                    <span class="hero-icon" aria-hidden="true">${item.icon}</span>
+                    <span class="hero-link-content">
+                      <span class="hero-link-title">${item.title}</span>
+                      <span class="hero-link-desc">${item.desc}</span>
+                    </span>
+                  </a>
+                </li>
+              `).join('')}
+            </ul>
+          </nav>
         </div>
       </section>
     `;
