@@ -5,14 +5,14 @@ const mockData = {
       name: 'Primary Button',
       category: 'buttons',
       description: 'Main call-to-action button',
-      sizes: ['small', 'medium', 'large']
+      preview: '<button class="btn btn-primary">Primary Button</button>'
     },
     {
       id: 2,
       name: 'Secondary Button',
       category: 'buttons',
       description: 'Secondary action button',
-      sizes: ['small', 'medium', 'large']
+      preview: '<button class="btn btn-secondary">Secondary Button</button>'
     },
     {
       id: 3,

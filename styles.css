@@ -206,7 +206,7 @@ body {
 
 .sidebar-nav {
   width: 240px;
-  background-color: #2d4561;
+  background-color: var(--neutral-medium-gray);
   padding: 24px 0;
   min-height: calc(100vh - 113px);
   position: sticky;
@@ -267,11 +267,11 @@ body {
 
 /* Hero Navigation */
 .hero-navigation {
-  background-color: var(--primary-dark);
-  color: var(--neutral-white);
+  background-color: var(--neutral-medium-gray);
+  color: var(--text-primary);
   padding: 40px 32px;
   margin-bottom: 48px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
 
@@ -324,9 +324,9 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin: 0 0 16px 0;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--text-primary);
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .icon-cards-horizontal {
@@ -358,7 +358,7 @@ body {
   gap: 8px;
   align-items: flex-start;
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--text-primary);
   transition: all 0.2s ease-out;
   padding: 10px;
   border-radius: 6px;
@@ -372,15 +372,19 @@ body {
   text-align: center;
   gap: 12px;
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--text-primary);
   transition: all 0.2s ease-out;
   padding: 12px;
   border-radius: 6px;
 }
 
 .hero-link-item:hover {
-  color: rgba(255, 255, 255, 1);
-  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--neutral-white);
+  background-color: var(--accent-blue);
+}
+
+.hero-link-item:hover .hero-link-desc {
+  color: var(--neutral-white);
 }
 
 .hero-link-item:focus {
@@ -390,9 +394,17 @@ body {
 }
 
 .hero-link:hover {
-  color: rgba(255, 255, 255, 1);
-  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--neutral-white);
+  background-color: var(--accent-blue);
   transform: translateX(4px);
+}
+
+.hero-link:hover .hero-icon {
+  color: var(--neutral-white);
+}
+
+.hero-link:hover .hero-link-desc {
+  color: var(--neutral-white);
 }
 
 .hero-link:focus {
@@ -402,11 +414,16 @@ body {
 }
 
 .hero-link--external {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--text-primary);
 }
 
 .hero-link--external:hover {
-  color: #87CEEB;
+  color: var(--neutral-white);
+  background-color: var(--accent-blue);
+}
+
+.hero-link--external:hover .hero-link-desc {
+  color: var(--neutral-white);
 }
 
 
@@ -417,7 +434,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--primary-dark);
 }
 
 .hero-icon svg {
@@ -443,7 +460,7 @@ body {
 
 .hero-link-desc {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--neutral-dark-gray);
   font-weight: 400;
 }
 
@@ -473,15 +490,22 @@ body {
   justify-content: flex-start;
   gap: 12px;
   text-decoration: none;
-  color: var(--neutral-white);
+  color: var(--accent-blue);
   width: 100%;
 }
 
 .icon-card:hover {
   background-color: #2d4561;
+  color: var(--neutral-white);
   transform: translateY(-4px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   border-radius: 8px;
+}
+
+.icon-card:hover .icon-card-title,
+.icon-card:hover .icon-card-desc,
+.icon-card:hover .icon-card-icon {
+  color: var(--neutral-white);
 }
 
 .icon-card:focus {
@@ -495,7 +519,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--neutral-white);
+  color: var(--accent-blue);
 }
 
 .icon-card-icon svg {
@@ -510,14 +534,14 @@ body {
 .icon-card-title {
   font-size: 18px;
   font-weight: 600;
-  color: var(--neutral-white);
+  color: var(--accent-blue);
   margin: 0;
   white-space: nowrap;
 }
 
 .icon-card-desc {
   font-size: 13px;
-  color: var(--neutral-white);
+  color: var(--accent-blue);
   margin: 0;
   opacity: 0.9;
 }
@@ -1037,6 +1061,7 @@ body {
 .btn-primary {
   background-color: var(--accent-blue);
   color: var(--neutral-white);
+  font-weight: 700;
 }
 
 .btn-primary:hover {
@@ -1046,12 +1071,12 @@ body {
 }
 
 .btn-secondary {
-  background-color: var(--neutral-medium-gray);
-  color: var(--text-primary);
+  background-color: var(--primary-navy);
+  color: var(--neutral-white);
 }
 
 .btn-secondary:hover {
-  background-color: #D8DADD;
+  background-color: var(--primary-dark);
 }
 
 .btn-small {
